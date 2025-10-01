@@ -5,7 +5,7 @@ import (
 	"log"
 	"net"
 
-	"http.learning/internal/request"
+	"github.com/sujalkumar0444/http/internal/request"
 )
 
 func main() {

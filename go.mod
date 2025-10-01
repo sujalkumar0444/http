@@ -1,4 +1,4 @@
-module http.learning
+module github.com/sujalkumar0444/http
 
 go 1.25.1
 
