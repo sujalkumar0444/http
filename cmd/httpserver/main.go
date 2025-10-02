@@ -74,6 +74,18 @@ func main() {
 		} else if req.RequestLine.RequestTarget == "/myproblem" {
 			body = respond500()
 			status = response.StatusInternalServerError
+		} else if req.RequestLine.RequestTarget == "/video" {
+			f, err := os.ReadFile("assets/cat.mp4")
+			if err != nil {
+				body = respond500()
+				status = response.StatusInternalServerError
+			} else {
+				h.Replace("Content-Type", "video/mp4")
+				h.Replace("Content-Length", fmt.Sprintf("%d", len(f)))
+				w.WriteStatusLine(response.StatusOK)
+				w.WriteHeaders(*h)
+				w.WriteBody(f)
+			}
 		} else if strings.HasPrefix(req.RequestLine.RequestTarget, "/httpbin/") {
 			target := req.RequestLine.RequestTarget
 			res, err := http.Get("https://httpbin.org/" + target[len("/httpbin/"):])
